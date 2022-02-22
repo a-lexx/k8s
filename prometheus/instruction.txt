@@ -1,0 +1,26 @@
+#########################################################################
+# https://rtfm.co.ua/kubernetes-monitoring-s-prometheus
+#########################################################################
+
+# setup configmap reloader
+kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
+
+# create monitoring namespace
+kubectl apply -f prometheus-ns.yaml
+
+# prometheus minimal configuration
+kubectl apply -f prometheus-configmap.yaml
+# get configuration
+kubectl -n monitoring get configmap prometheus-config -o yaml
+
+# prometheus deployment & loadbalancer service
+kubectl apply -f prometheus-deployment.yaml
+# checks:
+kubectl -n monitoring get pod
+kubectl -n monitoring get svc
+
+# permissions prometheus
+kubectl apply -f prometheus-rbac.yaml
+
+# add target 4 example nginx
+kubectl apply -f prometheus-configmap_upd.yaml
