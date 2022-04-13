@@ -14,6 +14,10 @@ spec:
       port: 5672
       targetPort: 5672
       protocol: TCP
+    - name: management
+      targetPort: 15672
+      port: 15672
+      protocol: TCP
   selector:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx

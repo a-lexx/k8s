@@ -26,20 +26,17 @@ spec:
         kubernetes.io/os: linux
       containers:
       - name: rabbitmq-k8s
-        image: rabbitmq:3.8
+        image: rabbitmq:3.9-management
         volumeMounts:
           - name: config-volume
             mountPath: /etc/rabbitmq
         # Learn more about what ports various protocols use
         # at https://www.rabbitmq.com/networking.html#ports
         ports:
-          - name: epmd
-            protocol: TCP
-            containerPort: 4369
           - name: amqp
             protocol: TCP
             containerPort: 5672
-          - name: http
+          - name: management
             protocol: TCP
             containerPort: 15672
         livenessProbe:
@@ -98,3 +95,5 @@ spec:
               path: rabbitmq.conf
             - key: enabled_plugins
               path: enabled_plugins
+            - key: definitions.json
+              path: definitions.json

@@ -36,13 +36,49 @@ data:
       ## credentials instead.
       ## Learn more at https://www.rabbitmq.com/access-control.html#loopback-users
       loopback_users.guest = false
-      default_user = radmin
-      default_pass = Radm1nPa55w0rd
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: tcp-services
-  namespace: develop
-data:
-  5672: "develop/rabbitmq:5672"
+      management.load_definitions = /etc/rabbitmq/definitions.json
+  definitions.json: |
+    {
+     "rabbit_version": "3.9",
+     "users": [
+      {
+       "name": "local_jobs",
+       "password_hash": "jBTwx2aVXbvFYM7+dM6eJ2AuIkLWh1I7UOz2Nt84gpkfV5yz",
+       "hashing_algorithm": "rabbit_password_hashing_sha256",
+       "tags": ""
+      },
+      {
+       "name": "adminuser",
+       "password_hash": "btHJaUv5ayw3rGBuKNC5RtBm6VJ1h0a3xU+xHx952NZFbsht",
+       "hashing_algorithm": "rabbit_password_hashing_sha256",
+       "tags": "administrator"
+      }
+     ],
+     "vhosts": [
+      {
+       "name": "\/"
+      },
+     ],
+     "permissions": [
+      {
+       "user": "local_jobs",
+       "vhost": "\/",
+       "configure": ".*",
+       "write": ".*",
+       "read": ".*"
+      }
+     ],
+     "parameters": [],
+     "policies": [],
+     "queues": [],
+     "exchanges": [],
+     "bindings": []
+    }
+#---
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: tcp-services
+#  namespace: develop
+#data:
+#  15672: "dev/rabbitmq:15672"
