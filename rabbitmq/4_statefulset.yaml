@@ -30,6 +30,8 @@ spec:
         volumeMounts:
           - name: config-volume
             mountPath: /etc/rabbitmq
+          - name: rabbitmq-data
+            mountPath: /var/lib/rabbitmq/mnesia
         # Learn more about what ports various protocols use
         # at https://www.rabbitmq.com/networking.html#ports
         ports:
@@ -97,3 +99,6 @@ spec:
               path: enabled_plugins
             - key: definitions.json
               path: definitions.json
+        - name: rabbitmq-data
+          persistentVolumeClaim:
+            claimName: rabbitmq-data-uat

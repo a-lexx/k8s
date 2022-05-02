@@ -20,8 +20,10 @@ data:
       log.console = true
       log.console.level = warning
       cluster_formation.k8s.address_type = hostname
+      cluster_formation.k8s.service_name = rabbitmq
+      cluster_formation.k8s.hostname_suffix = .rabbitmq.uat.svc.cluster.local
       ## How often should node cleanup checks run?
-      cluster_formation.node_cleanup.interval = 30
+      cluster_formation.node_cleanup.interval = 10
       ## Set to false if automatic removal of unknown/absent nodes
       ## is desired. This can be dangerous, see
       ##  * https://www.rabbitmq.com/cluster-formation.html#node-health-checks-and-cleanup
@@ -43,13 +45,13 @@ data:
      "users": [
       {
        "name": "local_jobs",
-       "password_hash": "jBTwx2aVXbvFYM7+dM6eJ2AuIkLWh1I7UOz2Nt84gpkfV5yz",
+       "password_hash": "4tzg1iMVmMui3VkbqkF5U+F3Y5sewq0Mq5fI7oYFmeSRANgo",
        "hashing_algorithm": "rabbit_password_hashing_sha256",
        "tags": ""
       },
       {
        "name": "adminuser",
-       "password_hash": "btHJaUv5ayw3rGBuKNC5RtBm6VJ1h0a3xU+xHx952NZFbsht",
+       "password_hash": "Aom+PYAoebiIH0ZMoYiCmFZcR8HOgKgsa/lNkfK+4IVywRwh",
        "hashing_algorithm": "rabbit_password_hashing_sha256",
        "tags": "administrator"
       }
@@ -81,4 +83,4 @@ data:
 #  name: tcp-services
 #  namespace: develop
 #data:
-#  15672: "dev/rabbitmq:15672"
+#  5672: "develop/rabbitmq:5672"
